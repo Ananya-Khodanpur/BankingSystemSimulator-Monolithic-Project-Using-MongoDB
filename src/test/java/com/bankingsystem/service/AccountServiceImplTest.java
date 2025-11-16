@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.bankingsystem.model.Account;
+import com.bankingsystem.model.Transaction;
 import com.bankingsystem.repository.AccountRepository;
 import com.bankingsystem.repository.TransactionRepository;
 import com.bankingsystem.exception.*;
@@ -74,13 +75,18 @@ class AccountServiceImplTest {
         a.setBalance(100.0);
 
         when(accountRepository.findByAccountNumber("ANN1234")).thenReturn(a);
-        when(transactionRepository.save(any())).thenReturn(null); // We don't care about result
+
+        Transaction t = new Transaction();
+        t.setTransactionId("TXN123");
+
+        when(transactionRepository.save(any())).thenReturn(t);
         when(accountRepository.save(any())).thenReturn(a);
 
         Account result = svc.deposit("ANN1234", 50);
 
         assertEquals(150.0, result.getBalance());
     }
+
 
     @Test
     void deposit_invalidAmount() {

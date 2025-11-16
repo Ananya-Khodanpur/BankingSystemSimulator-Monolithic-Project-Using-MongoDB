@@ -18,13 +18,18 @@ import java.util.*;
 @Service
 public class AccountServiceImpl implements AccountService {
     @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 
-    public AccountServiceImpl(AccountRepository accountRepository, TransactionRepository transactionRepository) {
+
+    @Autowired
+    public AccountServiceImpl(AccountRepository accountRepository,
+                              TransactionRepository transactionRepository) {
+        this.accountRepository = accountRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     private String generateAccountNumber(String holderName) {
@@ -148,7 +153,7 @@ public class AccountServiceImpl implements AccountService {
             transaction.setTimestamp(new Date());
             transaction.setSourceAccount(accountNumber);
             transactionRepository.save(transaction);
-            throw new InvalidAmountException("Insufficient Balance");
+            throw new InsufficientBalanceException("Insufficient Balance");
         }
         acc.setBalance(acc.getBalance() - amount);
         Transaction transaction = new Transaction();
