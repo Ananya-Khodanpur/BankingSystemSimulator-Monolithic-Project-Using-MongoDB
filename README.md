@@ -181,13 +181,7 @@ target/site/jacoco/index.html
 
 <img width="2876" height="622" alt="image" src="https://github.com/user-attachments/assets/313a8de8-4369-490f-87fe-75205dd56647" />
 
-
-# 📬 10. Sample Postman Collection (Optional)
-
-You may export your Postman collection and include it as:
-postman_collection.json
-
-# ✍️ 11. Author
+# ✍️ 10. Author
 
 Ananya Khodanpur
 Java Full Stack Developer – Virtusa FSD Program
